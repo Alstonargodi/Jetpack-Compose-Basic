@@ -5,10 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("toniAndroid")
+                    DefaultPreview()
                 }
             }
         }
@@ -37,44 +38,31 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingText(message : String,person : String){
-    Column() {
-        Text(
-            text = "saya adalah text $message",
-            fontSize = 30.sp,
-            modifier = Modifier
-                .padding(start = 20.dp, top = 10.dp)
-        )
-        Text(
-            text = "from $person",
-            fontSize = 25.sp,
-            modifier = Modifier
-                .wrapContentWidth(Alignment.End)
-                .padding(start = 20.dp, end = 10.dp)
-                .fillMaxWidth()
-        )
+fun DiceWithButtonAndImage(modifier: Modifier = Modifier){
+    var result by remember { mutableStateOf(1)}
+    val imageResource = when(result){
+        1 -> R.drawable.dice_1
+        2 -> R.drawable.dice_2
+        3 -> R.drawable.dice_3
+        4 -> R.drawable.dice_4
+        5 -> R.drawable.dice_5
+        else -> R.drawable.dice_6
     }
-}
-
-@Composable
-fun GreetingImageWithText(message: String,person: String){
-    val image = painterResource(id = R.drawable.androidparty)
-    Box() {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(
-            painter = image,
-            contentDescription = "drawble",
-            modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-            ,
-            contentScale = ContentScale.Crop
+            painter = painterResource(id = imageResource),
+            contentDescription = result.toString()
         )
-        GreetingText(message = message, person = person)
+        Spacer(modifier = Modifier.height(15.dp))
+        Button(onClick = {
+        result = (1..6).random()
+        }) {
+            Text(text = "roll")
+        }
     }
-}
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
 }
 
 @Preview(
@@ -84,6 +72,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     FirstcomposeTheme {
-        GreetingImageWithText(message = "row", person = stringResource(R.string.personAname))
+       DiceWithButtonAndImage()
     }
 }
