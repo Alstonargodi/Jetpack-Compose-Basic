@@ -5,20 +5,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.first_compose.ui.theme.FirstcomposeTheme
+import java.text.NumberFormat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,31 +38,75 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+private fun tripCalculator(
+    amount : Double,
+    tipPercent : Double = 15.0
+): String{
+    val tip = tipPercent / 100 * amount
+    return NumberFormat
+        .getCurrencyInstance()
+        .format(tip)
+}
+
+
 @Composable
-fun DiceWithButtonAndImage(modifier: Modifier = Modifier){
-    var result by remember { mutableStateOf(1)}
-    val imageResource = when(result){
-        1 -> R.drawable.dice_1
-        2 -> R.drawable.dice_2
-        3 -> R.drawable.dice_3
-        4 -> R.drawable.dice_4
-        5 -> R.drawable.dice_5
-        else -> R.drawable.dice_6
-    }
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(id = imageResource),
-            contentDescription = result.toString()
+fun EditNumberField(
+    value : String,
+    onValueChange: (String) -> Unit
+){
+    var amountInput by remember { mutableStateOf("0") }
+
+    val amount = amountInput.toDoubleOrNull() ?: 0.0
+    val tip = tripCalculator(amount)
+
+    TextField(
+        value = amountInput,
+        onValueChange = onValueChange,
+        label = {
+            Text(text = "cost of service")
+        },
+        modifier = Modifier.fillMaxWidth(),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number
         )
-        Spacer(modifier = Modifier.height(15.dp))
-        Button(onClick = {
-        result = (1..6).random()
-        }) {
-            Text(text = "roll")
-        }
+    )
+}
+
+@Composable
+fun TipTimeScreen(){
+    var amountInput by remember {
+        mutableStateOf("")
+    }
+
+    val amount = amountInput.toDoubleOrNull() ?: 0.0
+    val tip = tripCalculator(amount)
+
+    Column(
+        modifier = Modifier.padding(32.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Text(
+            text = "",
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier =
+            Modifier.height(16.dp)
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        EditNumberField(
+            value = amountInput,
+            onValueChange = { amountInput = it }
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = "tip",
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
@@ -72,6 +117,6 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier){
 @Composable
 fun DefaultPreview() {
     FirstcomposeTheme {
-       DiceWithButtonAndImage()
+        TipTimeScreen()
     }
 }
