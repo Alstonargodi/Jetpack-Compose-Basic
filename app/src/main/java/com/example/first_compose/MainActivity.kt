@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private fun tripCalculator(
+fun tripCalculator(
     amount : Double,
     tipPercent : Double = 15.0
 ): String{
