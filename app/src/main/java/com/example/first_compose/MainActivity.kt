@@ -51,20 +51,14 @@ private fun tripCalculator(
 
 @Composable
 fun EditNumberField(
+    label: String,
     value : String,
     onValueChange: (String) -> Unit
 ){
-    var amountInput by remember { mutableStateOf("0") }
-
-    val amount = amountInput.toDoubleOrNull() ?: 0.0
-    val tip = tripCalculator(amount)
-
     TextField(
-        value = amountInput,
+        value = value,
         onValueChange = onValueChange,
-        label = {
-            Text(text = "cost of service")
-        },
+        label = { Text(text = label) },
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(
@@ -78,16 +72,19 @@ fun TipTimeScreen(){
     var amountInput by remember {
         mutableStateOf("")
     }
-
-    val amount = amountInput.toDoubleOrNull() ?: 0.0
-    val tip = tripCalculator(amount)
+    var tipInput by remember {
+        mutableStateOf("")
+    }
+    val tipAmount = amountInput.toDoubleOrNull() ?: 0.0
+    val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
+    val tipResult = tripCalculator(tipAmount,tipPercent)
 
     Column(
         modifier = Modifier.padding(32.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = "",
+            text = "Calculator Tip",
             modifier = Modifier.align(Alignment.CenterHorizontally),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
@@ -97,12 +94,18 @@ fun TipTimeScreen(){
         )
         Spacer(modifier = Modifier.height(24.dp))
         EditNumberField(
+            label = "bill amount",
             value = amountInput,
             onValueChange = { amountInput = it }
         )
+        EditNumberField(
+            label = "service",
+            value = tipInput,
+            onValueChange = { tipInput = it }
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = "tip",
+            text = tipResult,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
