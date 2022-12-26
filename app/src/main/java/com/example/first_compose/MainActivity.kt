@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.first_compose.helper.TripCalculator
 import com.example.first_compose.ui.theme.FirstcomposeTheme
 import java.text.NumberFormat
 
@@ -36,16 +37,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-fun tripCalculator(
-    amount : Double,
-    tipPercent : Double = 15.0
-): String{
-    val tip = tipPercent / 100 * amount
-    return NumberFormat
-        .getCurrencyInstance()
-        .format(tip)
 }
 
 
@@ -77,7 +68,7 @@ fun TipTimeScreen(){
     }
     val tipAmount = amountInput.toDoubleOrNull() ?: 0.0
     val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
-    val tipResult = tripCalculator(tipAmount,tipPercent)
+    val tipResult = TripCalculator(tipAmount,tipPercent)
 
     Column(
         modifier = Modifier.padding(32.dp),
