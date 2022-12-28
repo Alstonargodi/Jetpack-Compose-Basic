@@ -1,5 +1,8 @@
 package com.example.basic_layout_compose.components
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -7,21 +10,23 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun Greeting(name: String) {
-    val expanded = remember {
+    var expanded by remember {
         mutableStateOf(false)
     }
-    val extraPadding = if (expanded.value)
-        48.dp
-    else
-        0.dp
+
+    val extraPadding by animateDpAsState(
+        if (expanded) 48.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
 
     Surface(
         modifier = Modifier.padding(
@@ -40,9 +45,9 @@ fun Greeting(name: String) {
                 Text(text = "test $name")
             }
             Button(onClick = {
-                expanded.value = !expanded.value
+               expanded = !expanded
             }) {
-                Text(text = if(expanded.value)
+                Text(text = if(expanded)
                         "show less"
                     else
                         "show more"
