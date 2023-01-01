@@ -5,15 +5,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.example.statecompose.components.WellScreen
+import com.example.statecompose.components.WellTaskList
+import com.example.statecompose.model.WellnessTask
 import com.example.statecompose.ui.theme.StateComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,30 +33,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun WaterCounter(modifier: Modifier = Modifier) {
-    Column(modifier = modifier.padding(16.dp)) {
-        //mechanisme to store single object
-        var count by remember {
-            mutableStateOf(0)
-        }
-        Text(
-            text = "count $count",
-            modifier = modifier.padding(16.dp)
-        )        
-        Button(
-            onClick = { count++ },
-            Modifier.padding(top = 8.dp)
-        ) {
-            Text(text = "increase")
-        }
-    }
-}
-
-@Composable
-fun WellScreen(modifier: Modifier = Modifier){
-    WaterCounter(modifier = modifier)
-}
 
 @Preview(
     showBackground = true,
