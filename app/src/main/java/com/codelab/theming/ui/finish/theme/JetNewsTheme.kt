@@ -1,6 +1,7 @@
 package com.codelab.theming.ui.finish.theme
 
 import DarkColors
+import JetnewsShape
 import LightColors
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
@@ -13,6 +14,7 @@ fun JetNewsTheme(
     androidx.compose.material.MaterialTheme(
         content = content,
         colors = if (darkTheme) DarkColors else LightColors,
-        typography = JetnewsTypography
+        typography = JetnewsTypography,
+        shapes = JetnewsShape
     )
 }

@@ -16,11 +16,11 @@
 
 package com.codelab.theming.ui.finish
 
-import Home
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
+import com.codelab.theming.ui.start.Home
 
 
 /**
