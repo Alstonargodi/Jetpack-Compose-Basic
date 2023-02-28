@@ -26,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Composer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -88,8 +89,8 @@ fun GreetingList(names : List<String>){
     }
 }
 
-@Composable
-fun Greeting(name: String) {
+
+@Composable fun Greeting(name: String) {
     var isExpanded by remember {
         mutableStateOf(false)
     }
@@ -124,7 +125,8 @@ fun Greeting(name: String) {
                 Text(
                     text = "Hello $name!",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.labelSmall
                 )
                 Text(text = "welcome")
             }
@@ -136,6 +138,29 @@ fun Greeting(name: String) {
             }
         }
     }
+}
+
+
+@Composable fun Building(number : Int){
+    Address(
+        number = number ,
+        street = "a",
+        city = "a",
+        country = "a",
+        zip = "2131",)
+}
+
+@Composable fun Address(
+    number: Int,
+    street: String,
+    city: String,
+    country: String,
+    zip: String,
+){
+    Text(text = "alamat :")
+    Text(text = "$number street")
+    Text(city)
+    Text(country)
 }
 @Preview(
     showBackground = true,
