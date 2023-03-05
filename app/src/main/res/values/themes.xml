@@ -4,4 +4,6 @@
     <style name="Theme.Modifier" parent="android:Theme.Material.Light.NoActionBar" />
 
     <style name="Theme.Scaffoldlayout" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.Jetcoffee" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
