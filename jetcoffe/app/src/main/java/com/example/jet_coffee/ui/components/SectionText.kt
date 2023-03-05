@@ -15,7 +15,7 @@ fun SectionText(
 ){
     Text(
         text = title,
-        style = MaterialTheme.typography.headlineMedium.copy(
+        style = MaterialTheme.typography.titleLarge.copy(
             fontWeight = FontWeight.ExtraBold
         ),
         modifier = modifier
