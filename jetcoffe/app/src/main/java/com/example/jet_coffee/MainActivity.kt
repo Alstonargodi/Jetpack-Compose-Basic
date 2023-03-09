@@ -30,6 +30,7 @@ import com.example.jet_coffee.model.dummyBestSellerMenu
 import com.example.jet_coffee.model.dummyCategory
 import com.example.jet_coffee.model.dummyMenu
 import com.example.jet_coffee.ui.components.CategoryItem
+import com.example.jet_coffee.ui.components.HomeSection
 import com.example.jet_coffee.ui.components.MenuItem
 import com.example.jet_coffee.ui.components.SearchBar
 import com.example.jet_coffee.ui.components.SectionText
@@ -57,18 +58,18 @@ fun JetCoffeApp(){
         )
     ) {
         Banner()
-        SectionText(
-            title = stringResource(id = R.string.section_category)
+        HomeSection(
+            title = stringResource(id = R.string.section_category),
+            content = { CategoryRow() }
         )
-        CategoryRow()
-        SectionText(
-            title = stringResource(id = R.string.section_favorite_menu)
+        HomeSection(
+            title = stringResource(id = R.string.section_favorite_menu),
+            content = { MenuRow(list = dummyMenu) }
         )
-        MenuRow(list = dummyMenu)
-        SectionText(
-            title = stringResource(id = R.string.section_best_seller_menu)
+        HomeSection(
+            title = stringResource(id = R.string.section_best_seller_menu),
+            content = { MenuRow(list = dummyBestSellerMenu) }
         )
-        MenuRow(list = dummyBestSellerMenu)
     }
 }
 
