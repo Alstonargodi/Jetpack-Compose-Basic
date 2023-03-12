@@ -1,4 +1,4 @@
-package com.example.side_effects
+package com.example.side_effects.navigationside
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle

@@ -1,4 +1,4 @@
-package com.example.side_effects
+package com.example.side_effects.navigationside
 
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner

@@ -1,6 +1,5 @@
-package com.example.side_effects
+package com.example.side_effects.navigationside
 
-import android.icu.text.CaseMap.Title
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,7 +24,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -37,53 +35,28 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.side_effects.R
 import com.example.side_effects.ui.theme.SideeffectsTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyDrawerApp(){
-    val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
+    val appState = rememberMyNavDrawerState()
 
     androidx.compose.material.Scaffold(
-        scaffoldState = scaffoldState,
+        scaffoldState = appState.scaffoldState,
         topBar = {
             MyTopBar (
-                onMenuClick = {
-                    scope.launch{
-                        scaffoldState.drawerState.open()
-                    }
-                }
+                onMenuClick = appState::onMenuClick
             )
         },
         drawerContent = {
             MyDrawerContent(
-                onItemSelected = { title ->
-                    scope.launch {
-                        scaffoldState.drawerState.close()
-                        val snackbarResult = scaffoldState.snackbarHostState.showSnackbar(
-                            message = context.resources.getString(R.string.coming_soon, title),
-                            actionLabel = context.resources.getString(R.string.subscribe_question)
-                        )
-                        if (snackbarResult == SnackbarResult.ActionPerformed){
-                            Toast.makeText(
-                                context,
-                                context.resources.getString(R.string.subscribed_info),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                },
-                onBackPres = {
-                        if (scaffoldState.drawerState.isOpen){
-                            scope.launch {
-                                scaffoldState.drawerState.close()
-                            }
-                        }
-                    }
-                )
+                //function reference
+                onItemSelected = appState::onItemSelected,
+                onBackPres = appState::onBackPress
+            )
         }
     ) { paddingValues ->
         Box(
