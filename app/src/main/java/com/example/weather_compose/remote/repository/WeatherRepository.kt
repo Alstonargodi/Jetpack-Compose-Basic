@@ -1,6 +1,6 @@
 package com.example.weather_compose.remote.repository
 
-import com.example.weather_compose.remote.WeatherApiService
+import com.example.weather_compose.remote.weatherapiservice.WeatherApiService
 import com.example.weather_compose.remote.entity.WeatherDetailResponse
 import com.example.weather_compose.remote.entity.WeatherForecastResponse
 import com.example.weather_compose.remote.utils.UserLocation

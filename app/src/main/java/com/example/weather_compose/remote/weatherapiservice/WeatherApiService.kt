@@ -1,4 +1,4 @@
-package com.example.weather_compose.remote
+package com.example.weather_compose.remote.weatherapiservice
 
 import com.example.weather_compose.remote.entity.WeatherDetailResponse
 import com.example.weather_compose.remote.entity.WeatherForecastResponse

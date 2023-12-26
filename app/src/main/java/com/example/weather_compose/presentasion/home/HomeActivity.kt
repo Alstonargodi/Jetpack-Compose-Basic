@@ -1,12 +1,15 @@
 package com.example.weather_compose.presentasion.home
 
 import android.util.Log
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.example.weather_compose.R
 import com.example.weather_compose.presentasion.navigation.NavigationDestination
 import com.example.weather_compose.presentasion.utils.ErrorScreen
 import com.example.weather_compose.presentasion.utils.LoadingScreen
+import com.example.weather_compose.presentasion.weatherapp.WeatherApp
 import com.example.weather_compose.remote.utils.FetchResult
 
 object HomeDestination : NavigationDestination {
@@ -20,12 +23,18 @@ fun HomeActivity(
     modifier: Modifier = Modifier,
     onTryAgain: () -> Unit,
 ){
+    Text(text = "tes")
     when(fetchResult){
         is FetchResult.Loading ->{
             LoadingScreen()
         }
-        is FetchResult.Success<*> ->{
-
+        is FetchResult.Success->{
+            Log.d("result test", fetchResult.detail.name)
+            //show detail
+            Text(
+                text = "tes",
+                color = Color.White
+            )
         }
         is FetchResult.Error->{
             ErrorScreen(

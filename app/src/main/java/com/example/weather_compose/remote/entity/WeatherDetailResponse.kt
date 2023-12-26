@@ -16,11 +16,11 @@ data class WeatherDetailResponse(
     @SerializedName("id")
     var id: Int,
     @SerializedName("main")
-    var main: Main,
+    var main: MainDetail,
     @SerializedName("name")
     var name: String,
     @SerializedName("sys")
-    var sys: Sys,
+    var sys: SysDetail,
     @SerializedName("timezone")
     var timezone: Int,
     @SerializedName("visibility")
@@ -31,19 +31,19 @@ data class WeatherDetailResponse(
     var wind: Wind
 )
 
-class Clouds(
+class CloudsDetail(
     @SerializedName("all")
     var all: Int
 )
 
-class Coord(
+class CoordDetail(
     @SerializedName("lat")
     var lat: Double,
     @SerializedName("lon")
     var lon: Double
 )
 
-class Sys(
+class SysDetail(
     @SerializedName("country")
     var country: String,
     @SerializedName("id")
@@ -56,7 +56,7 @@ class Sys(
     var type: Int
 )
 
-class Main(
+class MainDetail(
     @SerializedName("feels_like")
     var feelsLike: Double,
     @SerializedName("humidity")
@@ -82,7 +82,7 @@ class WeatherX(
     var main: String
 )
 
-class Wind(
+class WindDetail(
     @SerializedName("deg")
     var deg: Int,
     @SerializedName("speed")
