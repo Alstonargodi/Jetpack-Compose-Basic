@@ -1,6 +1,7 @@
 package com.example.weather_compose.presentasion.home.detail
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
@@ -19,9 +21,11 @@ import com.example.weather_compose.remote.entity.WeatherDetailResponse
 
 @Composable
 fun ShowDetailWeather(
-    detail : WeatherDetailResponse
+    detail : WeatherDetailResponse,
 ){
-    Column {
+    Column(
+        Modifier.background(Color.Black)
+    ) {
         FirstCard(detail = detail)
     }
 }

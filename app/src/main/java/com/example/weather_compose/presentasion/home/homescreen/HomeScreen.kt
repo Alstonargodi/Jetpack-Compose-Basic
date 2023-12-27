@@ -45,7 +45,6 @@ fun HomeScreen(
     ){
         Surface(
             modifier = Modifier
-                .background(Color.Black)
                 .fillMaxSize()
                 .padding(it)
         ) {
