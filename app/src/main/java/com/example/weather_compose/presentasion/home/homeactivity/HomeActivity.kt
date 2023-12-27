@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.weather_compose.R
+import com.example.weather_compose.presentasion.home.detail.ShowDetailWeather
 import com.example.weather_compose.presentasion.navigation.NavigationDestination
 import com.example.weather_compose.presentasion.utils.ErrorScreen
 import com.example.weather_compose.presentasion.utils.LoadingScreen
@@ -23,18 +24,12 @@ fun HomeActivity(
     modifier: Modifier = Modifier,
     onTryAgain: () -> Unit,
 ){
-    Text(text = "tes")
     when(fetchResult){
         is FetchResult.Loading ->{
             LoadingScreen()
         }
         is FetchResult.Success->{
-            Log.d("result test", fetchResult.detail.name)
-            //show detail
-            Text(
-                text = fetchResult.detail.name,
-                color = Color.White
-            )
+            ShowDetailWeather(detail = fetchResult.detail)
         }
         is FetchResult.Error->{
             ErrorScreen(
