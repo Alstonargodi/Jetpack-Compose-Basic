@@ -1,4 +1,4 @@
-package com.example.weather_compose.presentasion.home
+package com.example.weather_compose.presentasion.home.homeactivity
 
 import android.util.Log
 import androidx.compose.material3.Text
@@ -32,7 +32,7 @@ fun HomeActivity(
             Log.d("result test", fetchResult.detail.name)
             //show detail
             Text(
-                text = "tes",
+                text = fetchResult.detail.name,
                 color = Color.White
             )
         }
