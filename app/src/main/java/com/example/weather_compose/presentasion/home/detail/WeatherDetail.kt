@@ -1,9 +1,12 @@
 package com.example.weather_compose.presentasion.home.detail
 
+import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -18,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.weather_compose.remote.entity.WeatherDetailResponse
+import kotlin.math.round
 
 @Composable
 fun ShowDetailWeather(
@@ -27,6 +31,7 @@ fun ShowDetailWeather(
         Modifier.background(Color.Black)
     ) {
         FirstCard(detail = detail)
+        SecondCard(detail = detail)
     }
 }
 
@@ -36,24 +41,56 @@ fun FirstCard(
     detail : WeatherDetailResponse,
 ){
     val icon = "http://openweathermap.org/img/w/${detail.weather[0].icon}.png"
+    val temp = round(detail.main.temp).toInt()
+
     Row {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
                 .data(icon)
+                .allowHardware(false)
                 .build(),
             modifier = Modifier
-                .width(100.dp)
-                .height(100.dp),
+                .width(200.dp)
+                .height(200.dp),
             contentDescription = "Profile Image"
         )
         Column(
-            modifier = Modifier
-                .padding(10.dp)
         ) {
             Text(
                 fontSize = 20.sp,
                 text = detail.name
             )
+            Text(
+                fontSize = 20.sp,
+                text = detail.weather[0].description
+            )
+            Text(
+                fontSize = 20.sp,
+                text = temp.toString()
+            )
+
+        }
+    }
+}
+
+@Composable
+fun SecondCard(
+    detail : WeatherDetailResponse
+){
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row {
+            Text(text = "Clouds")
+            Text(text = detail.clouds.all.toString())
+        }
+        Row {
+            Text(text = "Humidty")
+            Text(text = "${detail.main.humidity} %")
+        }
+        Row {
+            Text(text = "Humidty")
+            Text(text = "${detail.wind.speed} km/h")
         }
     }
 }
