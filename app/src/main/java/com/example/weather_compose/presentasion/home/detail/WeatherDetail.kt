@@ -16,11 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.weather_compose.remote.entity.ForecastItem
 import com.example.weather_compose.remote.entity.WeatherDetailResponse
 import com.example.weather_compose.remote.entity.WeatherForecastResponse
 import kotlin.math.round
@@ -43,7 +45,7 @@ fun ShowDetailWeather(
 fun FirstCard(
     detail : WeatherDetailResponse,
 ){
-    val icon = "http://openweathermap.org/img/w/${detail.weather[0].icon}.png"
+    val icon = "https://openweathermap.org/img/w/${detail.weather[0].icon}.png"
     val temp = round(detail.main.temp).toInt()
 
     Row {
@@ -107,11 +109,51 @@ fun ListForecast(
     LazyColumn(modifier= modifier){
         items(
             count = forecastResponse.list.size,
-            key = { forecastResponse.list[it] }
+            key = { forecastResponse.list[it].dt }
         ){
             val data = forecastResponse.list[it]
-//            Text(text = data.weather[0].description)
+            forecastCard(detail = data)
         }
     }
 }
 
+
+@Composable
+fun forecastCard(
+    detail : ForecastItem
+){
+    val icon = "https://openweathermap.org/img/w/${detail.weather[0].icon}.png"
+    val temp = round(detail.main.temp).toInt()
+
+    Row {
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(icon)
+                .allowHardware(false)
+                .build(),
+            modifier = Modifier
+                .width(100.dp)
+                .height(100.dp),
+            contentDescription = "Profile Image"
+        )
+        Column {
+            Text(
+                text = temp.toString(),
+                style = TextStyle(
+                    color = Color.White
+                ),
+                fontSize = 20.sp,
+                modifier = Modifier.padding(10.dp)
+            )
+            Text(
+                text = detail.weather[0].description,
+                style = TextStyle(
+                    color = Color.White
+                ),
+                fontSize = 20.sp,
+                modifier = Modifier.padding(10.dp)
+            )
+        }
+    }
+
+}
