@@ -1,6 +1,7 @@
 package com.example.weather_compose.presentasion.home.homescreen
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,9 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.weather_compose.presentasion.home.HomeViewModel
+import com.example.weather_compose.presentasion.home.detail.ListForecast
 import com.example.weather_compose.presentasion.home.homeactivity.HomeActivity
 import com.example.weather_compose.presentasion.home.searchbar.TopbarSearch
 import com.example.weather_compose.presentasion.viewmodelfactory.AppViewModelProvider
+import com.example.weather_compose.remote.utils.UserLocation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,7 +52,8 @@ fun HomeScreen(
                 .padding(it)
         ) {
             HomeActivity(
-                fetchResult = viewModel.weatherDetailState
+                fetchResult = viewModel.weatherDetailState,
+                fetchResultForecast = viewModel.weatherForecastState
             ){}
         }
     }
@@ -66,6 +70,11 @@ fun searchDefault(
         withContext(Dispatchers.Main){
             viewModel.apply {
                 getDetailWeather(current)
+                try {
+                    getForecastData(UserLocation(current))
+                }catch (e: Error){
+                    Log.d("detailWeather",e.toString())
+                }
             }
         }
     }

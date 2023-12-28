@@ -12,6 +12,7 @@ import com.example.weather_compose.presentasion.utils.ErrorScreen
 import com.example.weather_compose.presentasion.utils.LoadingScreen
 import com.example.weather_compose.presentasion.weatherapp.WeatherApp
 import com.example.weather_compose.remote.utils.FetchResult
+import com.example.weather_compose.remote.utils.FetchResultForecast
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
@@ -21,6 +22,7 @@ object HomeDestination : NavigationDestination {
 @Composable
 fun HomeActivity(
     fetchResult: FetchResult,
+    fetchResultForecast: FetchResultForecast,
     modifier: Modifier = Modifier,
     onTryAgain: () -> Unit,
 ){
@@ -29,7 +31,20 @@ fun HomeActivity(
             LoadingScreen()
         }
         is FetchResult.Success->{
-            ShowDetailWeather(detail = fetchResult.detail)
+            when(fetchResultForecast){
+                is FetchResultForecast.Loading ->{
+
+                }
+                is FetchResultForecast.Success->{
+                    ShowDetailWeather(
+                        detail = fetchResult.detail,
+                        forecastResponse = fetchResultForecast.detail
+                    )
+                }
+                is FetchResultForecast.Error ->{
+
+                }
+            }
         }
         is FetchResult.Error->{
             ErrorScreen(

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,20 +22,22 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.weather_compose.remote.entity.WeatherDetailResponse
+import com.example.weather_compose.remote.entity.WeatherForecastResponse
 import kotlin.math.round
 
 @Composable
 fun ShowDetailWeather(
     detail : WeatherDetailResponse,
+    forecastResponse: WeatherForecastResponse
 ){
     Column(
         Modifier.background(Color.Black)
     ) {
         FirstCard(detail = detail)
         SecondCard(detail = detail)
+        ListForecast(forecastResponse = forecastResponse )
     }
 }
-
 
 @Composable
 fun FirstCard(
@@ -68,7 +71,6 @@ fun FirstCard(
                 fontSize = 20.sp,
                 text = temp.toString()
             )
-
         }
     }
 }
@@ -95,5 +97,21 @@ fun SecondCard(
     }
 }
 
-
+//forecast
+@Composable
+fun ListForecast(
+    forecastResponse: WeatherForecastResponse,
+    modifier: Modifier = Modifier
+){
+    Log.d("listForecast",forecastResponse.list.size.toString())
+    LazyColumn(modifier= modifier){
+        items(
+            count = forecastResponse.list.size,
+            key = { forecastResponse.list[it] }
+        ){
+            val data = forecastResponse.list[it]
+//            Text(text = data.weather[0].description)
+        }
+    }
+}
 

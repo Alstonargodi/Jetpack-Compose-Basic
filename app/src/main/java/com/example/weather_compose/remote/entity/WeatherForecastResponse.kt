@@ -15,6 +15,7 @@ data class WeatherForecastResponse(
     val message: Int
 )
 
+//todo forecast null
 data class ForecastItem(
     @SerializedName("clouds")
     val clouds: Clouds,
@@ -26,8 +27,6 @@ data class ForecastItem(
     val main: Main,
     @SerializedName("pop")
     val pop: Double,
-    @SerializedName("rain")
-    val rain: Rain,
     @SerializedName("sys")
     val sys: Sys,
     @SerializedName("visibility")
@@ -59,10 +58,6 @@ data class Main(
     val tempMin: Double
 )
 
-data class Rain(
-    @SerializedName("3h")
-    val h: Double
-)
 data class Sys(
     @SerializedName("pod")
     val pod: String
@@ -70,13 +65,13 @@ data class Sys(
 
 data class Weather(
     @SerializedName("description")
-    val description: String,
+    val description: String = "",
     @SerializedName("icon")
-    val icon: String,
+    val icon: String = "",
     @SerializedName("id")
-    val id: Int,
+    val id: Int = 0,
     @SerializedName("main")
-    val main: String
+    val main: String = ""
 )
 
 data class Wind(
