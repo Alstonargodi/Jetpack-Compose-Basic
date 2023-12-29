@@ -48,6 +48,11 @@ fun ShowDetailWeather(
             fontSize = 20.sp,
             text = "Forecast"
         )
+
+        /*
+        todo detail animation
+        https://programonkey.medium.com/using-jetpack-compose-to-draw-animation-instead-of-gif-da243a968902
+        */
         ListForecast(forecastResponse = forecastResponse )
     }
 }
