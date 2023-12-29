@@ -4,6 +4,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,11 +14,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -33,7 +36,9 @@ fun ShowDetailWeather(
     forecastResponse: WeatherForecastResponse
 ){
     Column(
-        Modifier.background(Color.Black)
+        modifier = Modifier
+            .background(Color.Black)
+            .padding(20.dp)
     ) {
         FirstCard(detail = detail)
         SecondCard(detail = detail)
@@ -55,8 +60,8 @@ fun FirstCard(
                 .allowHardware(false)
                 .build(),
             modifier = Modifier
-                .width(200.dp)
-                .height(200.dp),
+                .width(100.dp)
+                .height(100.dp),
             contentDescription = "Profile Image"
         )
         Column(
@@ -82,19 +87,55 @@ fun SecondCard(
     detail : WeatherDetailResponse
 ){
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
-        Row {
-            Text(text = "Clouds")
-            Text(text = detail.clouds.all.toString())
+        Row(
+            modifier = Modifier
+                .padding(5.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                fontWeight = FontWeight.Medium,
+                fontSize = 20.sp,
+                text = "Clouds"
+            )
+            Text(
+                fontSize = 20.sp,
+                text = "${detail.clouds.all} %"
+            )
         }
-        Row {
-            Text(text = "Humidty")
-            Text(text = "${detail.main.humidity} %")
+        Row(
+            modifier = Modifier
+                .padding(5.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                fontWeight = FontWeight.Medium,
+                fontSize = 20.sp,
+                text = "Humidty"
+            )
+            Text(
+                fontSize = 20.sp,
+                text = "${detail.main.humidity} %"
+            )
         }
-        Row {
-            Text(text = "Humidty")
-            Text(text = "${detail.wind.speed} km/h")
+        Row(
+            modifier = Modifier
+                .padding(5.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                fontWeight = FontWeight.Medium,
+                fontSize = 20.sp,
+                text = "Humidty"
+            )
+            Text(
+                fontSize = 20.sp,
+                text = "${detail.wind.speed} km/h"
+            )
         }
     }
 }
