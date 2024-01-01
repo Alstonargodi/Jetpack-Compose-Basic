@@ -1,8 +1,11 @@
 package com.example.weather_compose.presentasion.home.detail
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +17,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.weather_compose.presentasion.customicon.ComposedIcon
 import com.example.weather_compose.remote.entity.ForecastItem
+import com.example.weather_compose.remote.entity.Weather
 import com.example.weather_compose.remote.entity.WeatherDetailResponse
 import com.example.weather_compose.remote.entity.WeatherForecastResponse
 import kotlin.math.round
@@ -216,5 +226,39 @@ fun forecastCard(
             )
         }
     }
+}
+
+
+//fun show animation
+@SuppressLint("RememberReturnType")
+@Composable
+fun WeatherIconAnim(
+    modifier: Modifier,
+    weatherIcon : com.example.weather_compose.presentasion.customicon.iconutils.Weather
+){
+    val (cur, setCur) = remember { mutableStateOf(weatherIcon) }
+    var trigger by remember { mutableStateOf(0f) }
+
+    DisposableEffect(weatherIcon.composedIcon){
+        trigger = 1f
+        onDispose { }
+    }
+
+    val animateFloat by animateFloatAsState(
+        targetValue = trigger,
+        animationSpec = tween(1000), label = ""
+    ) {
+        setCur(weatherIcon)
+        trigger = 0f
+    }
+
+    val composeInfo = remember(animateFloat) {
+        cur.composedIcon + (weatherIcon.composedIcon - cur.composedIcon) * animateFloat
+    }
+
+    ComposedIcon(
+        modifier,
+        composeInfo
+    )
 
 }

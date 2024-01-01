@@ -17,7 +17,10 @@ import com.example.weather_compose.presentasion.customicon.weathericon.Animatabl
 import com.example.weather_compose.presentasion.customicon.weathericon.AnimatableThunder
 
 @Composable
-fun ComposedIcon(modifier: Modifier = Modifier, composeInfo: ComposeInfo){
+fun ComposedIcon(
+    modifier: Modifier = Modifier,
+    composeInfo: ComposeInfo
+){
 
     val (sun, cloud, lightCloud, rains, lightRain, snow, thunder) = composeInfo
     Box(modifier = modifier.size(IconSize)) {
