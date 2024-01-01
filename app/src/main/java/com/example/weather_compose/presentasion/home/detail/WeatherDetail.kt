@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -195,6 +196,18 @@ fun forecastCard(
             .padding(top = 10.dp)
             .fillMaxWidth()
     ) {
+
+        //icon testing
+        Surface(
+            modifier = Modifier.background(Color.White)
+        ) {
+            WeatherIconAnim(
+                modifier = Modifier.fillMaxWidth() ,
+                weatherIcon = com.example.weather_compose.presentasion.customicon.iconutils.Weather.Cloudy
+            )
+        }
+
+
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
                 .data(icon)
