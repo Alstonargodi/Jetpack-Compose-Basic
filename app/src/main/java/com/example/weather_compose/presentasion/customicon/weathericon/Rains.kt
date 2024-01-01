@@ -81,7 +81,7 @@ private fun Raindrop(modifier: Modifier = Modifier, spacePosition: Float = 0f) {
             Offset(x, line1y2),
             strokeWidth = width,
             colorFilter = ColorFilter.tint(
-                Color.Black
+                Color.White
             ),
             cap = StrokeCap.Round
         )

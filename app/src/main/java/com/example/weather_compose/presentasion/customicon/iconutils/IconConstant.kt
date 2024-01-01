@@ -209,7 +209,6 @@ object WeatherComposedInfo {
         lightRain = IconInfo(0.4f, Offset(0.225f, 0.3f), 0f),
         snow = IconInfo(0.5f, Offset(0.1f, 0.3f), alpha = 0f),
         thunder = IconInfo(0.45f, Offset(0.29f, 0.6f), alpha = 0f)
-
     )
 
     val SnowyComposed = ComposeInfo(

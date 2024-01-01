@@ -55,6 +55,3 @@ fun HomeActivity(
         }
     }
 }
-
-
-//fun s

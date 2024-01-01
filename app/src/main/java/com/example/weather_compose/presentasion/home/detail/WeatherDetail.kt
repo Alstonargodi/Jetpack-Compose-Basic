@@ -8,8 +8,10 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -51,14 +53,24 @@ fun ShowDetailWeather(
             .background(Color.Black)
             .padding(20.dp)
     ) {
-        FirstCard(detail = detail)
-        SecondCard(detail = detail)
-        Text(
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(top = 2.dp, bottom = 2.dp),
-            fontSize = 20.sp,
-            text = "Forecast"
-        )
+        Box {
+            WeatherIconAnim(
+                modifier = Modifier
+                    .padding(start = 120.dp)
+                    .fillMaxWidth(),
+                weatherIcon = com.example.weather_compose.presentasion.customicon.iconutils.Weather.HeavyRain,
+            )
+            Column {
+                FirstCard(detail = detail)
+                SecondCard(detail = detail)
+                Text(
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(top = 2.dp, bottom = 2.dp),
+                    fontSize = 20.sp,
+                    text = "Forecast"
+                )
+            }
+        }
 
         /*
         todo detail animation
@@ -75,35 +87,22 @@ fun FirstCard(
     val icon = "https://openweathermap.org/img/w/${detail.weather[0].icon}.png"
     val temp = round(detail.main.temp).toInt()
 
-    Row {
-        AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data(icon)
-                .allowHardware(false)
-                .build(),
-            modifier = Modifier
-                .width(120.dp)
-                .height(120.dp),
-            contentDescription = "Profile Image"
+    Column() {
+        Text(
+            modifier = Modifier.padding(5.dp),
+            fontSize = 20.sp,
+            text = detail.name
         )
-        Column(
-        ) {
-            Text(
-                modifier = Modifier.padding(2.dp),
-                fontSize = 20.sp,
-                text = detail.name
-            )
-            Text(
-                modifier = Modifier.padding(2.dp),
-                fontSize = 20.sp,
-                text = detail.weather[0].description
-            )
-            Text(
-                modifier = Modifier.padding(2.dp),
-                fontSize = 20.sp,
-                text = "$temp C"
-            )
-        }
+        Text(
+            modifier = Modifier.padding(5.dp),
+            fontSize = 20.sp,
+            text = detail.weather[0].description
+        )
+        Text(
+            modifier = Modifier.padding(5.dp),
+            fontSize = 20.sp,
+            text = "$temp C"
+        )
     }
 }
 
@@ -113,6 +112,7 @@ fun SecondCard(
 ){
     Column(
         modifier = Modifier
+            .padding(top = 8.dp, bottom = 8.dp)
             .fillMaxWidth(),
     ) {
         Row(
@@ -198,16 +198,6 @@ fun forecastCard(
     ) {
 
         //icon testing
-        Surface(
-            modifier = Modifier.background(Color.White)
-        ) {
-            WeatherIconAnim(
-                modifier = Modifier.fillMaxWidth() ,
-                weatherIcon = com.example.weather_compose.presentasion.customicon.iconutils.Weather.Cloudy
-            )
-        }
-
-
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
                 .data(icon)
@@ -218,6 +208,7 @@ fun forecastCard(
                 .height(100.dp),
             contentDescription = "Profile Image"
         )
+
         Column {
             Text(
                 text = detail.dtTxt,
