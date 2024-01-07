@@ -1,7 +1,5 @@
 package com.example.weather_compose.presentasion.weatherapp
 
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
