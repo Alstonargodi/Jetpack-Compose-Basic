@@ -23,7 +23,6 @@ object HomeDestination : NavigationDestination {
 fun HomeActivity(
     fetchResult: FetchResult,
     fetchResultForecast: FetchResultForecast,
-    modifier: Modifier = Modifier,
     onTryAgain: () -> Unit,
 ){
     when(fetchResult){
@@ -36,6 +35,8 @@ fun HomeActivity(
 
                 }
                 is FetchResultForecast.Success->{
+                    //todo switch inisialisasi animasi icon berdasarkan kondisi cuaca
+                    WeatherSelect(fetchResult.detail.weather[0].description)
                     ShowDetailWeather(
                         detail = fetchResult.detail,
                         forecastResponse = fetchResultForecast.detail
@@ -54,4 +55,11 @@ fun HomeActivity(
             Log.d("HomeActivity",fetchResult.error)
         }
     }
+}
+
+fun WeatherSelect(
+    description : String
+){
+
+    Log.d("weatherActivity",description)
 }

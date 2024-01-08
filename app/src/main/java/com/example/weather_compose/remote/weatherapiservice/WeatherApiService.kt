@@ -12,7 +12,7 @@ interface WeatherApiService {
         @Query("q") location : String,
         @Query("units") units : String = Constant.weatherUnit,
         @Query("appid") apiKey : String = Constant.weatherApiKey,
-        @Query("lang") language : String = "id"
+        @Query("lang") language : String = "en"
     ): WeatherDetailResponse
 
     @GET("forecast")
@@ -22,7 +22,7 @@ interface WeatherApiService {
         @Query("lon") longtitude: Double,
         @Query("units") units : String = Constant.weatherUnit,
         @Query("appid") apiKey : String = Constant.weatherApiKey,
-        @Query("lang") language : String = "id"
+        @Query("lang") language : String = "en"
     ): WeatherForecastResponse
 
     @GET("weather")
@@ -32,7 +32,7 @@ interface WeatherApiService {
         @Query("lon") longtitude: Double,
         @Query("units") units: String = Constant.weatherUnit,
         @Query("appid") apiKey: String = Constant.weatherApiKey,
-        @Query("lang") language: String = "id"
+        @Query("lang") language: String = "en"
     ): WeatherDetailResponse
 
 }

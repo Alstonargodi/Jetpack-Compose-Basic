@@ -94,4 +94,6 @@ dependencies {
     //spalshscreen
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    //lottie animation
+    implementation("com.airbnb.android:lottie-compose:6.0.1")
 }
