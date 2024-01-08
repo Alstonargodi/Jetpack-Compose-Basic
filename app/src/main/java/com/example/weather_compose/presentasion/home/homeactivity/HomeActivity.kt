@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.weather_compose.R
+import com.example.weather_compose.presentasion.customicon.iconutils.Weather
 import com.example.weather_compose.presentasion.home.detail.ShowDetailWeather
 import com.example.weather_compose.presentasion.navigation.NavigationDestination
 import com.example.weather_compose.presentasion.utils.ErrorScreen
@@ -36,7 +37,6 @@ fun HomeActivity(
                 }
                 is FetchResultForecast.Success->{
                     //todo switch inisialisasi animasi icon berdasarkan kondisi cuaca
-                    WeatherSelect(fetchResult.detail.weather[0].description)
                     ShowDetailWeather(
                         detail = fetchResult.detail,
                         forecastResponse = fetchResultForecast.detail
@@ -59,7 +59,17 @@ fun HomeActivity(
 
 fun WeatherSelect(
     description : String
-){
-
-    Log.d("weatherActivity",description)
+): Weather{
+    when(description){
+         description.contains("sunny",true).toString() ->{ return Weather.Sunny }
+        "Mostly Clear"->{ return Weather.MostlyClear }
+        description.contains("cloud",true).toString()->{
+            return Weather.HeavyRain
+        }
+        "Cloudy Rain"->{ return Weather.CloudyRain}
+        "Heavy Rain"->{ return Weather.HeavyRain}
+        "Snowy"->{ return Weather.Snowy}
+        "Storm"->{ return Weather.Storm}
+        else->{ return Weather.MostlyClear }
+    }
 }

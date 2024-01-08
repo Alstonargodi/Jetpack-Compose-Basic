@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.weather_compose.presentasion.customicon.ComposedIcon
+import com.example.weather_compose.presentasion.home.homeactivity.WeatherSelect
 import com.example.weather_compose.remote.entity.ForecastItem
 import com.example.weather_compose.remote.entity.Weather
 import com.example.weather_compose.remote.entity.WeatherDetailResponse
@@ -58,7 +59,7 @@ fun ShowDetailWeather(
                 modifier = Modifier
                     .padding(start = 120.dp)
                     .fillMaxWidth(),
-                weatherIcon = com.example.weather_compose.presentasion.customicon.iconutils.Weather.HeavyRain,
+                weatherIcon = WeatherSelect(detail.weather[0].description),
             )
             Column {
                 FirstCard(detail = detail)
